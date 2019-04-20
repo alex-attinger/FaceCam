@@ -13,6 +13,9 @@ function vid1 = acquire_faceVid
 % ---------------
 %     preview the video and ensure that lighting/framing/etc look good:
 %     by calling preview_faceVid
+%     close video by hitting close button. Will automatically call cleanup
+%     function
+
 
 clear all; close all; clc
 

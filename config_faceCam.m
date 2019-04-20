@@ -25,7 +25,7 @@ source1.ExposureTime = 20000;
 % save video as an MPEG-4
 vid1.LoggingMode = 'disk&memory';
 %vid1.DiskLogger = VideoWriter([folder session], 'Grayscale AVI');
-vid1.DiskLogger = VideoWriter([folder session]);
+vid1.DiskLogger = VideoWriter([folder session],'MPEG-4');
 % use a hardware trigger to save one frame of video per trigger pulse
 % check with: triggerinfo(vid1)
 vid1.TriggerRepeat = inf; % collect frames from multiple triggers
