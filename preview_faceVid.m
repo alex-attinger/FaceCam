@@ -1,4 +1,4 @@
-function vid1 = acquire_faceVid
+function vid1 = preview_faceVid
 
 % acquire a video and save to disk
 %
@@ -12,31 +12,28 @@ function vid1 = acquire_faceVid
 % BEFORE RUNNING:
 % ---------------
 %     preview the video and ensure that lighting/framing/etc look good:
-%     by calling preview_faceVid
+%     vid1 = videoinput('gentl', 1, 'Mono8');
+%     preview(vid1);
+%
+% AFTER RUNNING:
+% -------------
+%     stop the video object, print key params, and clear the video from
+%     memory by running the function:
+%     cleanup_faceVid(vid1);
 
-clear all; close all; clc
-
-% input session info
-mouse = input('Mouse: ', 's');
-session = input('Session: ', 's');
-assignin('base','mouse_name',mouse)
-assignin('base','session_name',session);
 
 % configure for video acquisition
-vid1 = config_faceCam(mouse,session);
+vid1 = videoinput('gentl', 1, 'Mono8');
 assignin('base','facevid',vid1)
-% to store timestamps
-D = {};
-D.times = [];
-D.frames = [];
-vid1.UserData = D;
 
-% configure to save frame timestamps every 20 frames
-vid1.FramesAcquiredFcnCount = 20;
-vid1.FramesAcquiredFcn = @get_timestamps;
+source1 = getselectedsource(vid1);
+source1.ExposureStartTriggerMode = 'On';
+source1.ExposureStartTriggerActivation = 'RisingEdge';
+source1.Gain = 10.0161;
+source1.ExposureTime = 20000;
 
 figure('Name', 'My Custom Preview Window'); 
-uicontrol('String', 'Close', 'Callback', 'stop_clean_vid'); 
+uicontrol('String', 'Stop', 'Callback', 'stopvid'); 
 vidRes = vid1.VideoResolution; 
 nBands = vid1.NumberOfBands; 
 hImage = image( zeros(vidRes(2), vidRes(1), nBands) );
@@ -44,7 +41,7 @@ hImage = image( zeros(vidRes(2), vidRes(1), nBands) );
 preview(vid1, hImage);
 
 % start video acquisition
-start(vid1)
+%start(vid1)
 disp('video acquisition started:')
 disp(datetime('now'))
 disp('----------------------------------------')
