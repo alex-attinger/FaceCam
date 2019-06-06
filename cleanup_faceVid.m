@@ -12,7 +12,7 @@ disp(datetime('now'))
 disp('----------------------------')
 
 % save and display params
-folder = ['C:\Users\giocomolab\Desktop\videos\' mouse '\'];
+folder = ['D:\videos\' mouse '\'];
 file = [session '_framedata.mat'];
 framedata = v.UserData;
 save([folder file], 'framedata')

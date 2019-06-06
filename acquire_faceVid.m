@@ -17,7 +17,7 @@ function vid1 = acquire_faceVid
 %     function
 
 
-clear all; close all; clc
+clear all; close all; 
 
 % input session info
 mouse = input('Mouse: ', 's');
