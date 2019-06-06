@@ -27,8 +27,8 @@ vid1 = videoinput('gentl', 1, 'Mono8');
 assignin('base','facevid',vid1)
 
 source1 = getselectedsource(vid1);
-source1.ExposureStartTriggerMode = 'On';
-source1.ExposureStartTriggerActivation = 'RisingEdge';
+%source1.ExposureStartTriggerMode = 'On';
+%source1.ExposureStartTriggerActivation = 'RisingEdge';
 source1.Gain = 10.0161;
 source1.ExposureTime = 20000;
 
