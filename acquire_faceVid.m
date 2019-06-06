@@ -1,4 +1,4 @@
-function vid1 = acquire_faceVid
+function vid1 = acquire_faceVid(varargin)
 
 % acquire a video and save to disk
 %
@@ -17,12 +17,27 @@ function vid1 = acquire_faceVid
 %     function
 
 
-clear all; close all; 
+close all; 
 
 % input session info
+if nargin==0
 mouse = input('Mouse: ', 's');
 session = input('Session: ', 's');
 assignin('base','mouse_name',mouse)
+assignin('base','session_name',session);
+else
+    ff=fopen(varargin{1});
+    
+dat=textscan(ff,'%s','Delimiter','\n');
+dat=dat{1};
+fclose(ff)
+mouse = extractValue(dat,'Mouse');
+condition = extractValue(dat,'Condition');
+stimulus = extractValue(dat,'Stimulus');
+mouse = strcat(mouse,'_',datestr(now,'yymmdd'));
+session = strcat(stimulus,'_',condition,'_',datestr(now,'hh-MM-ss'));
+end
+assignin('base','mouse_name',mouse);
 assignin('base','session_name',session);
 
 % configure for video acquisition

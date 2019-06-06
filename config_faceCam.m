@@ -9,11 +9,11 @@ function vid1 = config_faceCam(mouse,session)
 % NOTE: video is logging to disk and memory! For videos exceeding a couple
 %       minutes, be sure to clear memory periodically so as not to fill up.
 
-folder = ['D:\videos\' mouse '\'];
+folder = fullfile('D:\temp', mouse);
 if ~isdir(folder)
     mkdir(folder)
 end
-
+sprintf('creating video: %s \n',fullfile(folder,session))
 vid1 = videoinput('gentl', 1, 'Mono8');
 vid1.FramesPerTrigger = 1;
 triggerconfig(vid1, 'hardware', 'DeviceSpecific', 'DeviceSpecific');
@@ -26,7 +26,7 @@ source1.ExposureTime = 20000;
 % save video as an MPEG-4
 vid1.LoggingMode = 'disk&memory';
 %vid1.DiskLogger = VideoWriter([folder session], 'Grayscale AVI');
-vid1.DiskLogger = VideoWriter([folder session]);
+vid1.DiskLogger = VideoWriter(fullfile(folder,session));
 % use a hardware trigger to save one frame of video per trigger pulse
 % check with: triggerinfo(vid1)
 src.AcquisitionStatusSelector = 'AcquisitionActive';
